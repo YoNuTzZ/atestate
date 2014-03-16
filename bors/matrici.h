@@ -5,8 +5,10 @@ struct Matrix {
 	int rows;
 	int columns;
 
-	double **value;
 	double determinant;
+	double trace;
+			
+	double **value;
 	double **inverse;
 };
 
