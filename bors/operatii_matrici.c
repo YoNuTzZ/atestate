@@ -16,7 +16,7 @@ struct Matrix *get_minor(struct Matrix *a, int line, int columns)
 		if(i == line)
 			x--;
 		for(int j = 0; j < a->columns; j++) {
-			if(i != line || j != columns) {
+			if(i != line && j != columns) {
 				minor->value[x][y] = a->value[i][j];
 				y++;
 			}
@@ -28,12 +28,45 @@ struct Matrix *get_minor(struct Matrix *a, int line, int columns)
 	return minor;
 }
 
+struct Matrix *get_transpose(struct Matrix *a) 
+{
+	struct Matrix *transpose = create_matrix(a->lines, a->columns);
+	if(transpose == NULL) {
+		return NULL;
+	}
 
-/*
+	for(int i = 0; i < a->lines; i++) {
+		for(int j = 0; j < a->columns; j++) {
+			transpose->value[i][j] = a->value[j][i];
+		}
+	}
+	return transpose;
+}
+
+double **get_inverse_wrapee(struct Matrix *a)
+{
+	// implementation here
+}
+
+void get_inverse(struct Matrix *a) 
+{
+	// wrapper for get_inverse_wrapee
+}
+
+
+void multiply_matrix_with_scalar(struct Matrix *a, double scalar) 
+{
+	for(int i = 0; i < a->lines; i++) {
+		for(int j = 0; j < a->columns; j++) {
+			a->value[i][j] *= scalar; 
+		}
+	}
+}
+
 int compute_trace(struct Matrix *a)
 {
-	if(c->columns != a->lines) {
-		return //error
+	if(a->columns != a->lines) {
+		return NOT_SQUARE_MATRIX; //error
 	}
 
 	for(int i = 0; i < a->columns; i++) {
@@ -41,4 +74,4 @@ int compute_trace(struct Matrix *a)
 	}
 
 	return NO_ERROR;
-}*/
+}

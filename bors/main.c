@@ -4,16 +4,13 @@
 #include "error.h"
 
 int main () {
-	struct Matrix *a = create_matrix(4, 4);
-	struct Matrix *minor;
-
+	struct Matrix *a = create_matrix(2, 2);
+	struct Matrix *at;
 	read_matrix(a);
+	at = get_transpose(a);
 
-	minor = get_minor(a, 1, 2);
-	print_matrix(minor);
+	print_matrix(at);
 
 
-
-	
 	return 0;
 }
