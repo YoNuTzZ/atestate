@@ -1,24 +1,32 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <math.h>
 #include "matrici.h"
 #include "error.h"
 
-int compute_determinant(struct Matrix *a)
+struct Matrix *get_minor(struct Matrix *a, int line, int columns)
 {
-	int columns = a->columnns;
-	int rows    = a->rows;
-
-	if(columns != rows) {
-		return NOT_SQUARE_MATRIX; //error
+	struct Matrix *minor = create_matrix(a->lines - 1, a->columns - 1);
+	if(minor == NULL) {
+		return NULL;
 	}
 
-	// compute determinant
-	// god damn it, it should be recursive
-} 
+	for(int i = 0; i < a->lines; i++) {
+		for(int j = 0; i < a->columns; j++) {
+			if(i != line && j != columns) {
+				minor->value[i][j] = a->value[i][j];
+			}
+		}
+	}
 
+	return minor;
+}
+
+
+/*
 int compute_trace(struct Matrix *a)
 {
-	if(c->columns != a->rows) {
+	if(c->columns != a->lines) {
 		return //error
 	}
 
@@ -27,4 +35,4 @@ int compute_trace(struct Matrix *a)
 	}
 
 	return NO_ERROR;
-}
+}*/
