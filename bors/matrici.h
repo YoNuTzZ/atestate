@@ -9,7 +9,7 @@ struct Matrix {
 	double trace;
 			
 	double **value;
-	double **inverse;
+	struct Matrix *inverse;
 };
 
 struct Matrix *create_matrix(int rows, int columns);

@@ -28,6 +28,23 @@ struct Matrix *get_minor(struct Matrix *a, int line, int columns)
 	return minor;
 }
 
+double get_determinant(struct Matrix *a)                                            
+{                                                                              
+	if (a->lines == 1 && a->columns == 1) {                                     
+		return a->value[0][0];              
+	}                                    
+	else {                                                                      
+	  det = 0;                                                          
+	  for (int i = 0; i < a->columns; i++) {                                  
+	      struct Matrix *m = get_minor(a, 0, i);                              
+	      det += (a->value[0][i]) * (pow(-1, 2 + i)) * (determinant(m));      
+	      free(m);                                                            
+	  }                                                                      
+	  return det;                                                            
+	}                                                                          
+}
+
+
 struct Matrix *get_transpose(struct Matrix *a) 
 {
 	struct Matrix *transpose = create_matrix(a->lines, a->columns);
@@ -45,7 +62,30 @@ struct Matrix *get_transpose(struct Matrix *a)
 
 double **get_inverse_wrapee(struct Matrix *a)
 {
-	// implementation here
+	if(a->determinant == 0) {
+		return NULL;
+	}
+
+	struct Matrix *inverse = create_matrix(a->lines, a->columns);
+	struct Matrix *minor;
+
+	if(inverse == NULL) {
+		return NULL;
+	}
+
+	inverse->inverse = a->value;
+
+	// A^*
+	for(int i = 0; a->lines; i++) {
+		for(int j = 0; j < a->columns; j++) {
+			minor = get_minor(a, i, j);
+			inverse->value[i][j] = get_determinant(minor);
+		}
+	}
+
+	//  incomplete
+	// ! finish it tomorrow
+
 }
 
 void get_inverse(struct Matrix *a) 
