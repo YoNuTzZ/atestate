@@ -11,12 +11,16 @@ struct Matrix *get_minor(struct Matrix *a, int line, int columns)
 		return NULL;
 	}
 
-	for(int i = 0; i < a->lines; i++) {
-		for(int j = 0; i < a->columns; j++) {
+	int x = 0, y = 0;
+	for(int i = 0; i < a->lines - 1 ; i++) {
+		for(int j = 0; i < a->columns -1; j++) {
 			if(i != line && j != columns) {
-				minor->value[i][j] = a->value[i][j];
+				minor->value[x][y] = a->value[i][j];
+				y++;
 			}
 		}
+		x++;
+		y = 0;
 	}
 
 	return minor;
