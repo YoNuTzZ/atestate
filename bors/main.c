@@ -5,13 +5,12 @@
 
 int main () {
 	struct Matrix *a = create_matrix(3, 3);
+	struct Matrix *b;
+	
 	read_matrix(a);
+	b = matrix_pow(a, 2);
 
-	a->determinant   = get_determinant(a);
-
- 	compute_inverse(a));
-
-	print_matrix(a->inverse);
+	print_matrix(b);
 
 	return 0;
 }

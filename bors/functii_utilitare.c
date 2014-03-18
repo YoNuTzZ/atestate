@@ -48,6 +48,14 @@ void distroy_matrix(struct Matrix *a)
 	}
 }
 
+void copy_matrix(struct Matrix *a, struct Matrix **destination) 
+{
+	for(int i = 0; i < a->lines; i++) {
+		for(int j = 0; j < a->columns; j++) {
+			(*destination)->value[i][j] = a->value[i][j];
+		}
+	}
+}
 
 void read_matrix(struct Matrix *a) 
 {

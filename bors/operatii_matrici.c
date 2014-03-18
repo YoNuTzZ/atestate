@@ -124,18 +124,17 @@ int multiply_matrices(struct Matrix *a, struct Matrix *b, struct Matrix **result
 	return NO_ERROR;
 }
 
-int matrix_pow(struct Matrix *a, int power, struct Matrix **result) 
+struct Matrix *matrix_pow(struct Matrix *a, int power) 
 {
-	if(power == 1) {
-		*result = a;
-		return NO_ERROR;
+	struct Matrix *result = create_matrix(a->lines, a->columns);
+	copy_matrix(a, &result);
+
+	for(int i = 0; i < power-1; i++) {
+		multiply_matrices(result, a, &result);
 	}
 
-	multiply_matrices(a, a, result);
-
-
+	return result;
 }
-
 
 int add_matrices(struct Matrix *a, struct Matrix *b, struct Matrix **result)
 {

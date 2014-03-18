@@ -23,6 +23,8 @@ int compute_inverse(struct Matrix *a);
 double get_determinant(struct Matrix *a);
 int multiply_matrices(struct Matrix *a, struct Matrix *b, struct Matrix **result);
 int add_matrices(struct Matrix *a, struct Matrix *b, struct Matrix **result);
+void copy_matrix(struct Matrix *a, struct Matrix **destination); 
+struct Matrix *matrix_pow(struct Matrix *a, int power); 
 
 
 
