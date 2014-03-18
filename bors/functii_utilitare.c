@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "matrici.h"
+#include "error.h"
 
 struct Matrix *create_matrix(int lines, int columns) 
 {
@@ -23,7 +24,7 @@ struct Matrix *create_matrix(int lines, int columns)
 	} 
 
 	for(int i = 0; i < lines; i++) {
-		a->value[i] = malloc(columns * sizeof(double));
+		a->value[i] = calloc(columns, sizeof(double));
 		if(a->value == NULL) {
 			return NULL;
 		}
@@ -32,7 +33,6 @@ struct Matrix *create_matrix(int lines, int columns)
 	return a;
 }
 
-/*
 void distroy_matrix(struct Matrix *a) 
 {
 	int lines = a->lines;
@@ -43,10 +43,11 @@ void distroy_matrix(struct Matrix *a)
 	}
 	free(a->value);
 
-	// free the memory occuped by it's inverse
-	// ! after implement function to calculate inverse
+	if(a->inverse != NULL) {
+		distroy_matrix(a->inverse);
+	}
 }
-*/
+
 
 void read_matrix(struct Matrix *a) 
 {
@@ -61,8 +62,12 @@ void read_matrix(struct Matrix *a)
 	}
 }
 
-void print_matrix(struct Matrix *a)
+int print_matrix(struct Matrix *a)
 {
+	if(a == NULL) {
+		return MATRIX_NOT_EXISTS;
+	}
+
 	int lines    = a->lines;
 	int columns = a->columns;
 	
@@ -72,5 +77,7 @@ void print_matrix(struct Matrix *a)
 		}
 		printf("\n");
 	}
+
+	return NO_ERROR;
 }
 
